@@ -1,0 +1,15 @@
+#images-panel.panel.panel-default
+  .panel-heading
+    header Client_images
+    .panel-heading-tools
+      = link_to "#{material_icon('add_circle_outline')} Add IMAGE".html_safe, new_client_client_image_path(@client), remote: true, class: "btn btn-primary btn-block btn-flat"
+  - if @client.client_images.count > 0
+    row
+      - @client.client_images.each do |client_image|
+        .col-md-4
+          .panel.panel-default.image_client
+            .panel-body.no-padding-top
+              = image_tag client_image.image_url("160x160")
+
+  - else
+    | No Client_image

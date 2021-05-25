@@ -1,0 +1,25 @@
+= form_for @amenity, html: {class: "form-horizontal"} do |f|
+  = render "shared/error_messages", object: @amenity if @amenity.errors.any?
+  .row.margin-top-2
+    .col-lg-8
+      .panel.panel-default
+        .panel-heading
+          header = @panel_title || "Amenity"
+        .panel-body
+          .form-group
+            label.col-md-3.control-label for="name" Amenity Name
+            .col-md-8
+              = f.text_field :name, class: "form-control"
+          / .form-group
+          /   label.col-md-3.control-label for="description" Description
+          /   .col-md-8
+          /     = f.text_area :description, class: "form-control"
+
+          .form-group
+            .col-md-3
+            .col-md-8
+              br/
+              button.btn.btn-primary.pull-right
+                i.fa.fa-circle-o-notch.fa-spin.hidden
+                | Save
+              = link_to 'Cancel', amenities_path, class: "btn btn-default"

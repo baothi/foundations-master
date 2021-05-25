@@ -1,0 +1,32 @@
+#upgrades-modal.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        h4.modal-title Upgrade: #{@upgrade.name}
+        .row
+          .col-md-6
+            ul.list
+              li.list-item.list-2-line
+                .list-item-text.layout-column
+                  h3 Code
+                  p = @upgrade.code
+              li.list-item.list-2-line
+                .list-item-text.layout-column
+                  h3 Name
+                  p = @upgrade.name
+              /li.list-item.list-2-line
+              /  .list-item-text.layout-column
+              /    h3 Category
+              /    p = @upgrade.category.name
+          .col-md-6
+            - if @upgrade.images.first
+              h3 Image
+              p.lead
+                /  = attachment_image_tag(@upgrade.images.first, :file, :fill, 250, 125)
+                .thumbnail
+                  = image_tag @upgrade.upgrade_image_url
+        .modal-footer
+          button.btn.btn-default.btn-flat.btn-ripple data-dismiss="modal" data-id="upgrade-modal" type="button"
+            | Close
+
+

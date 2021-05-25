@@ -1,0 +1,21 @@
+
+= render "shared/notice" if notice
+
+= form_tag update_all_settings_path, html: {class: "form-horizontal"} do |f|
+  .row
+    .col-lg-8
+       - @settings.each do |setting|
+        .panel.panel-default
+          .panel-heading
+            header
+              = setting.key.split("/")[0].humanize.titleize
+          .panel-body
+            form.form-horizontal
+              .form-group
+                label.col-md-3.control-label
+                  = setting.key.split("/")[1].humanize.titleize
+                .col-md-8
+                  = text_field_tag "[settings][#{setting.key}]", setting.value, class: "form-control", required: true
+
+    .col-lg-4
+      = render 'shared/save_panel', cancel: root_path, title: "Save Settings"

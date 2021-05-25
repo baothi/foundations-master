@@ -1,0 +1,4 @@
+ul.list-inline.no-padding
+  li.no-padding.no-margin = link_to material_icon('open_in_new'), show_path, class: "btn btn-icon-toggle btn-default", remote: true
+  li.no-padding.no-margin = link_to material_icon('mode_edit'), edit_path, class: "btn btn-icon-toggle btn-default", remote: true
+  li.no-padding.no-margin = link_to material_icon('delete'), delete_path, class: "btn btn-icon-toggle btn-default", data: {:confirm => 'Are you sure?', behavior: "nested-action-delete" }, :remote => true, :method => :delete

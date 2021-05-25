@@ -1,0 +1,26 @@
+#selections-panel.panel.panel-default
+  .panel-heading
+    header Selections
+    .panel-heading-tools
+      = link_to "#{material_icon('add_circle_outline')} Add".html_safe, new_client_selection_path(@client), remote: true, class: "btn btn-primary btn-block btn-flat"
+
+      / a.btn.btn-default.btn-block.btn-flat
+      /   = material_icon("add_circle_outline")
+      /   | Add
+
+  .panel-body.no-padding-top
+    - if @client.selections.count > 0
+      table#selection-list.table.table-striped.nested-table.table-condensed
+        / tr
+        /   th Name
+        /   th Description
+        /   th.text-right Actions
+        - @client.selections.each do |selection|
+          tr
+            td = selection.code
+            td = selection.name
+            td = selection.category.name
+            td.text-right = render "shared/nested_action_buttons", object: selection, show_path: client_selection_path(@client, selection), edit_path: edit_client_selection_path(@client, selection), delete_path: client_selection_path(@client, selection)
+
+    - else
+      | No selections

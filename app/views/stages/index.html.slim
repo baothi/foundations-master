@@ -1,0 +1,35 @@
+section.page-content
+  .row
+    .col-md-12
+      ol.breadcrumb
+        li = link_to 'Dashboard', root_path
+        li = link_to 'Models', models_path
+        li Stage Management
+      = render "shared/notice" if notice
+
+  .row.margin-top-2
+    .col-md-12
+      .panel.panel-default
+        .panel-heading
+          header Stages
+          .panel-heading-tools
+            = link_to new_stage_path, class: "btn btn-primary" do
+              i.material-icons> add
+              | New Stage
+
+        .panel-body
+          table#communities-table.table.table-striped
+            thead
+              tr
+                td Order
+                th Name
+                th Description
+                th.text-right Actions
+            tbody
+              - @stages.each do |stage|
+                tr
+                  td width="25" = stage.order
+                  td width="25%" = stage.name
+                  td.description width="45%" = truncate(stage.description, length: 100)
+                  td.text-right
+                    = render "shared/action_buttons", edit_path: edit_stage_path(stage), object: stage

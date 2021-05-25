@@ -1,0 +1,60 @@
+= render "shared/notice" if notice
+
+= form_for @client, html: {class: "form-horizontal"}, data: { behavior: 'autosave-form', id: @client.id } do |f|
+  = render "shared/error_messages", object: @client if @client.errors.any?
+  = hidden_field_tag :id, nil, value: @client.id
+  .row.margin-top-2
+    .col-lg-8
+      .panel.panel-default
+        .panel-heading
+          header Account Settings
+        .panel-body.no-padding-top
+          = render 'clients/form/account_settings', f: f
+
+      = render "clients/form/model", f: f
+      = render "clients/form/selections"
+      = render "clients/form/upgrades"
+      /= render "clients/form/images"
+
+      //--- Save Footer Panel
+      = render 'shared/save_footer_panel', cancel: models_path, title: "Save Model"
+
+    //-- Right Sidebar
+    .col-lg-4
+      = render 'shared/save_panel', cancel: clients_path, title: "Save Client"
+
+      .panel.panel-default
+        .panel-heading
+          header Images
+        .panel-body.text-center.no-padding-top
+          a.btn.btn-flat.btn-primary.materialRipple-light.materialRipple-btn type="button" href="#{client_client_images_path(@client)}"
+            = material_icon "collections"
+            |  Manage Images
+            .materialRipple-md-ripple-container
+
+      .panel.panel-default
+        .panel-heading
+          header Documents
+        .panel-body.text-center.no-padding-top
+          a.btn.btn-flat.btn-primary.materialRipple-light.materialRipple-btn type="button" href="#{client_client_documents_path(@client)}"
+            = material_icon "library_books"
+            |  Manage Documents
+            .materialRipple-md-ripple-container
+
+      .panel.panel-default
+        .panel-heading
+          header Elevations
+        .panel-body.text-center.no-padding-top
+          a.btn.btn-flat.btn-primary.materialRipple-light.materialRipple-btn type="button" href="#{client_elevations_path(@client)}"
+            = material_icon "collections"
+            |  Manage Elevations
+
+      .panel.panel-default
+        .panel-heading
+          header Floor Plans
+        .panel-body.text-center.no-padding-top
+          a.btn.btn-flat.btn-primary.materialRipple-light.materialRipple-btn type="button" href="#{client_floor_plans_path(@client)}"
+            = material_icon "collections"
+            |  Manage Floor Plans
+            .materialRipple-md-ripple-container
+

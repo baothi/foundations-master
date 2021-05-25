@@ -1,0 +1,31 @@
+.panel.panel-default
+  .panel-heading
+    header Model Stages
+    .panel-heading-tools
+      = link_to "Manage Stages", stages_path, class: "btn btn-primary btn-block btn-flat btn-sm"
+
+  .panel-body.no-padding-top
+    table.table.table-striped.model-stages
+      - Stage.all.each do |stage|
+        - @model_stage = @model.model_stages.where(stage: stage).first || @model.model_stages.new
+        = f.fields_for :model_stages, @model_stage do |ff|
+          tr
+            td.no-padding width="30"
+              = ff.hidden_field :_destroy, value: model_object_destroy_value(@model.stages, stage), data: {action: "destroy", object: "stage", id: stage.id}
+              = ff.check_box :stage_id, {class: "checkbox checkbox-primary", checked: model_object_checked_value(@model.stages, stage), data: {behavior: "toggle-object-destroy", object: "stage", id: stage.id}}, stage.id, nil
+            td width="70%"
+              h3.no-padding = stage.name
+            td.text-right
+              .model-object-image-wrapper.pull-right.spinner-container.image-preview-single data={object: "stage", id: stage.id}
+                - if @model_stage.stage_image.present?
+                  a href=("#{image_tag(@model_stage.stage_image_url)}") data-lightbox="stages" data-title="#{stage.name}"
+                    = image_tag(@model_stage.stage_image_url, class: "stage", data: {object: "stage", id: stage.id})
+                - else
+                  a href="/img/not-available.gif" data-lightbox="stages" data-title="Stages - #{stage.name}"
+                    img alt=("#{stage.name}") src="/img/not-available.gif" data={object: "stage", id: stage.id}
+
+            td.text-right
+              button.secondary-container.btn.btn-default.btn-icon-toggle data={behavior: "select-object-image", object: "stage", id: stage.id}
+                i.material-icons add_a_photo
+              = ff.hidden_field :stage_image
+              /= ff.uploadcare_field :stage_image, :data => {:multiple => true}, :uploadcare => {:multiple => true}, :class => 'model-stage-image'

@@ -1,0 +1,44 @@
+section.page-content
+  .row
+    .col-md-12
+      ol.breadcrumb
+        li = link_to 'Dashboard', root_path
+        li = link_to 'Clients', clients_path
+        li = link_to @client.decorate.full_name, edit_client_path(@client)
+        li Elevations
+      = render "shared/notice" if notice
+
+  .row.margin-top-2
+    .col-md-12
+      .panel.panel-default
+        .panel-heading
+          header Elevations
+          .panel-heading-tools
+            = link_to edit_client_path(@client), class: "btn btn-primary btn-block btn-flat btn-sm" do
+              = material_icon('done')
+              |  Done
+
+        .panel-body
+          .row
+            .col-md-3
+              = link_to "#{material_icon('add_circle_outline')} Add Elevation".html_safe, { controller: 'elevations', action: :new, client_id: @client }, remote: true, class: "btn btn-primary btn-block btn-lg btn-flat"
+
+          - if @elevations.count > 0
+            table.table.table-striped
+              thead
+                tr
+                  th Elevation Name
+                  th Date Added
+                  th.text-right Actions
+              tbody
+              - @elevations.each_with_index do |elevation, i|
+                tr
+                  td = elevation.name
+                  td = elevation.created_at
+                  td.text-right
+                    a.btn.btn-default.btn-sm.btn-flat href="#{elevation.file.try(:cdn_url)}" data-lightbox="elevation-image-#{elevation.id}" data-title="Elevation - #{elevation.name}"
+                      | View
+                    = link_to 'Delete',  client_elevation_path(@client, elevation), data: { confirm: 'Are you sure?' }, method: :delete, class: 'btn btn-danger btn-sm btn-flat'
+          - else
+            hr/
+            p.lead No Elevations

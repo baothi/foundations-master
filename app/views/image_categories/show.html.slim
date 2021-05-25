@@ -1,0 +1,9 @@
+p#notice = notice
+
+p
+  strong Image:
+  = @image_category.image
+
+= link_to 'Edit', edit_image_category_path(@image_category)
+'|
+= link_to 'Back', image_categories_path

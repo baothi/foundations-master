@@ -1,0 +1,61 @@
+#sidebar-wrapper
+  = render "dashboard/shared/userbox"
+  nav#sidebar
+    ul
+      li
+        = link_to root_path do
+          span.menu-item-ico
+            i.material-icons dashboard
+          span.menu-item-name Dashboard
+      li
+        = link_to communities_path do
+          span.menu-item-ico
+            i.material-icons  nature_people
+          span.menu-item-name  Communities
+        ul
+          li = link_to 'List Communities', communities_path
+          li = link_to 'Amenities', amenities_path
+      li
+        = link_to models_path do
+          span.menu-item-ico
+            i.material-icons  home
+          span.menu-item-name  Models
+        ul
+          li = link_to 'List Models', models_path
+          li = link_to 'Stages', stages_path
+      li
+        = link_to clients_path do
+          span.menu-item-ico
+            i.material-icons people
+          span.menu-item-name  Clients
+      - if policy(:user).manage?
+        li
+          = link_to users_path do
+            span.menu-item-ico
+              i.material-icons people
+            span.menu-item-name  Users
+      li
+        = link_to root_path do
+          span.menu-item-ico
+            i.material-icons  settings
+          span.menu-item-name  Configuration
+        ul
+          li = link_to "Selection Categories", categories_path
+          li = link_to "Image Categories", image_categories_path
+          / li = link_to "Users", "#"
+          li = link_to "System Settings", settings_path
+
+  nav#sidebar.affix-bottom
+    ul
+      li.nav-main-heading
+        span.sidebar-mini-hide
+      li
+        a href="#"
+          span.menu-item-ico
+            i.material-icons  account_box
+          span.menu-item-name  Account
+      li
+        = link_to destroy_user_session_path, :method => :delete do
+          span.menu-item-ico
+            i.material-icons  exit_to_app
+          span.menu-item-name  Logout

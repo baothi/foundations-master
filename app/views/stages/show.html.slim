@@ -1,0 +1,22 @@
+p#notice = notice
+p
+  strong Images:
+  - @stage.images.each do |image|
+    = attachment_image_tag(image, :file, :fill, 150, 150)
+p
+p
+  strong Name:
+  = @stage.name
+p
+  strong Description:
+  = @stage.description
+p
+  strong Start date:
+  = @stage.start_date
+p
+  strong End date:
+  = @stage.end_date
+
+= link_to 'Edit', edit_stage_path(@stage)
+'|
+= link_to 'Back', stages_path

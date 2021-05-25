@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong Client:
+  = @client_image.client
+p
+  strong Stage references:
+  = @client_image.stage_references
+
+= link_to 'Edit', edit_client_image_path(@client_image)
+'|
+= link_to 'Back', client_images_path

@@ -1,0 +1,50 @@
+section.page-content
+  .row
+    .col-md-12
+      ol.breadcrumb
+        li = link_to 'Dashboard', root_path
+        li = link_to 'Clients', clients_path
+        li = link_to @client.decorate.full_name, edit_client_path(@client)
+        li Documents
+      = render "shared/notice" if notice
+
+  .row.margin-top-2
+    .col-md-12
+      .panel.panel-default.panel-divider
+        .panel-heading
+          header Client Documents
+          .panel-heading-tools
+            = link_to edit_client_path(@client), class: "btn btn-primary btn-block btn-flat btn-sm" do
+              = material_icon('done')
+              |  Done
+
+        /! /.panel-heading
+        .panel-body
+          .row
+            .col-md-3
+              = link_to "#{material_icon('add_circle_outline')} Add Document".html_safe, { controller: 'client_documents', action: :new, client_id: @client }, remote: true, class: "btn btn-primary btn-block btn-lg btn-flat"
+
+          - if @client_documents.count > 0
+            table.table.table-striped
+              thead
+                tr
+                  th Document Name
+                  th Date Added
+                  th.text-right
+              tbody
+              - @client_documents.each_with_index do |client_document, i|
+                tr
+                  td = client_document.name
+                  td = client_document.created_at
+                  td.text-right
+                    a.btn.btn-default.btn-sm.btn-flat href="#{client_document.file.try(:cdn_url)}"
+                      | Download
+                    = link_to 'Delete',  client_client_document_path(@client, client_document), data: { confirm: 'Are you sure?' }, method: :delete, class: 'btn btn-danger btn-sm btn-flat'
+                /a href="#{client_image.image_url}" data-lightbox="client-images-#{stage.id}" data-title="Client Images - #{stage.name}"
+                  /img alt=("#{stage.name}") src="#{attachment_url(client_image.images.first, :file, :fill, 200, 180)}" data={object: "client-image", id: stage.id} class="thumbnail"
+                  /img alt=("#{stage.name}") src="#{client_image.image_url("200x180")}" data={object: "client-image", id: stage.id} class="thumbnail"
+          - else
+            hr/
+            p.lead No Documents
+
+

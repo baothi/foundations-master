@@ -1,0 +1,15 @@
+.row.margin-left-2
+
+  - if @client_images.where(stage: stage).count > 0
+    - @client_images.where(stage: stage).each_with_index do |client_image, i|
+      .label.col-md-4 class="client-image-container-#{client_image.id}"
+        .thumbnail.custom-images
+          .caption
+            p
+              = link_to 'Edit', edit_client_client_image_path(@client, client_image), class: "btn btn-default btn-sm", remote: true
+              = link_to 'Delete', client_client_image_path(@client, client_image), class: "btn btn-danger btn-sm", remote: true, method: :delete, data: {confirm: 'Are you sure?'}
+
+          = image_tag client_image.image_url("200x180"), data: {object: "client-image", id: stage.id}
+  - else
+    p.lead No images
+

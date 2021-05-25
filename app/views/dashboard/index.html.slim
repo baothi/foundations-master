@@ -1,0 +1,11 @@
+section.page-header
+  ol.breadcrumb
+    li Dashboard
+
+section.page-content
+  = render "dashboard/index_charts"
+  .row
+    .col-lg-8
+      = render "dashboard/recent_activity"
+    .col-md-4
+      = render "dashboard/todo_list"

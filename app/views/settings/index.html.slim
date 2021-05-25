@@ -1,0 +1,10 @@
+section.page-content
+  .row
+    .col-md-12
+      ol.breadcrumb
+        li = link_to 'Dashboard', root_path
+        li = link_to 'Settings', settings_path
+
+  .row.margin-top-2
+    .col-md-12
+      = render 'form'

@@ -1,0 +1,20 @@
+.panel.panel-default
+  .panel-heading
+    header
+      | Recent Activity
+      span.label.label-primary.pull-right 1 user online
+  .panel-body
+    - if @recent_activities.present?
+      ul.list
+        - if @recent_activities.present?
+        - @recent_activities.each_with_index do |activity, index|
+          li.list-item.list-3-line
+            img.list-avatar alt="Avatar" src="/img/avatar.png" /
+            .list-item-text.layout-column
+              h3 = activity.performer.email
+              h4 = activity.feed_label
+              p = activity.feed_summary
+          - if index < @recent_activities.length - 1
+            li.list-divider.inset-divider
+    - else
+      p No activities

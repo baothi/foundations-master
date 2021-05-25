@@ -1,0 +1,48 @@
+.list {
+  .list-item {
+    .list-avatar {
+      // margin-left: 16px;
+    }
+  }
+}
+table.model-stages {
+  tr {
+    td:first-child {
+      // padding-left: 15px!important;
+      // padding-right: 10px!important;
+    }
+  }
+}
+.model-object-image-wrapper {
+  padding: 5px 0px;
+  margin-bottom: 0px;
+  .thumbnail {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.btn-group.bootstrap-select.show-tick{
+ display: none !important
+}
+
+.icon.uploadcare-widget{
+  display: none !important
+}
+
+
+.image-preview-single {
+  padding: 10px 0;
+}
+.image-preview-single > img {
+  width: 128px;
+  height: 96px;
+  vertical-align: middle;
+  visibility: hidden;
+}
+
+table.model-stages{
+  .uploadcare-widget{
+    display: none !important;
+  }
+}

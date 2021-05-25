@@ -1,0 +1,12 @@
+.panel.panel-default
+  .panel-heading
+    header Model Stages
+    .panel-heading-tools
+      = link_to "Manage Stages", stages_path, class: "btn btn-primary btn-block btn-flat btn-sm"
+  .panel-body.no-padding-top
+    p Stages that will be available to this Model.
+    .row
+      = f.collection_check_boxes :stage_ids, Stage.all, :id, :name do |s|
+        label.col-md-4
+          = s.check_box(class: "checkbox checkbox-primary", checked: true)
+          span = s.text

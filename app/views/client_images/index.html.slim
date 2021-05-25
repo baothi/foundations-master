@@ -1,0 +1,41 @@
+section.page-content
+  .row
+    .col-md-12
+      ol.breadcrumb
+        li = link_to 'Dashboard', root_path
+        li = link_to 'Clients', clients_path
+        li = link_to @client.decorate.full_name, edit_client_path(@client)
+        li Images
+      = render "shared/notice" if notice
+
+  .row.margin-top-2
+    .col-md-12
+      .panel.panel-default.panel-divider
+        .panel-heading
+          header Client Images
+          .panel-heading-tools
+            = link_to edit_client_path(@client), class: "btn btn-primary btn-block btn-flat btn-sm" do
+              = material_icon('done')
+              |  Done
+
+        /! /.panel-heading
+        .panel-body
+          - if @stages.count > 0
+            .row
+              .col-md-3
+                = link_with_icon "add_circle_outline", "Add Images", { controller: 'client_images', action: :new, client_id: @client, manage_image: true }, { remote: true, class: "btn btn-primary btn-block btn-lg btn-flat" }
+            hr/
+            .row
+              .tabbable.tabs-left
+                ul.nav.nav-tabs.client-stages.margin-right-2
+                  - @stages.each_with_index do |stage, i|
+                    li class="#{stage.id == @current_stage ? 'active' : ''}"
+                      = link_to stage.name, "#stage-#{stage.id}", data: {toggle: 'tab'}, role: 'tab'
+
+                .tab-content
+                  - @stages.each_with_index do |stage, i|
+                    .tab-pane.fade.in id="stage-#{stage.id}" role='tabpanel' class="#{stage.id == @current_stage ? 'active' : ''}"
+                      = render "client_images/stage_tab", stage: stage
+          - else
+            p There are no stages selected for the model.
+

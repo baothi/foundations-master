@@ -1,0 +1,17 @@
+.row
+  .col-md-3
+    = link_to "#{material_icon('add_circle_outline')} Add Document".html_safe, { controller: 'client_documents', action: :new, client_id: @client, stage_id: stage.id }, remote: true, class: "btn btn-primary btn-block btn-lg btn-flat"
+
+hr/
+
+- if @client_documents.count > 0
+  - @client_documents.each_with_index do |client_document, i|
+    .col-md-12
+      a href="#{client_document.file.try(:cdn_url)}"
+        = client_document.file.try(:cdn_url)
+      /a href="#{client_image.image_url}" data-lightbox="client-images-#{stage.id}" data-title="Client Images - #{stage.name}"
+        /img alt=("#{stage.name}") src="#{attachment_url(client_image.images.first, :file, :fill, 200, 180)}" data={object: "client-image", id: stage.id} class="thumbnail"
+        /img alt=("#{stage.name}") src="#{client_image.image_url("200x180")}" data={object: "client-image", id: stage.id} class="thumbnail"
+- else
+  p.lead No documents
+

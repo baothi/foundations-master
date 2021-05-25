@@ -1,0 +1,81 @@
+= form_for @community, html: {class: "form-horizontal"}, :multipart => true do |f|
+  = render "shared/error_messages", object: @community if @community.errors.any?
+  .row.margin-top-2
+    .col-lg-8
+      .panel.panel-default
+        .panel-heading
+          header General
+        .panel-body.no-padding-top
+          .form-group
+            label.col-md-3.control-label for="name" Community Name
+            .col-md-8
+              = f.text_field :name, class: "form-control"
+          .form-group
+            label.col-md-3.control-label for="description" Description
+            .col-md-8
+              = f.text_area :description, class: "form-control"
+          .form-group
+            label.col-md-3.control-label for="name" Address
+            .col-md-8
+              = f.text_field :address, class: "form-control"
+          .form-group
+            label.col-md-3.control-label for="description" City
+            .col-md-8
+              = f.text_field :city, class: "form-control"
+          .form-group
+            label.col-md-3.control-label for="name" Province
+            .col-md-8
+              = f.select :province, province_options, { prompt: " "}, { class: "form-control" }
+          .form-group
+            label.col-md-3.control-label for="description" Postal Code
+            .col-md-8
+              = f.text_field :postal_code, class: "form-control"
+          .form-group
+            label.col-md-3.control-label for="name" Image
+            .col-md-8
+              /= f.attachment_field :images_files, multiple: true, presigned: true, direct: true
+              = f.fields_for :images, @community_image do |ff|
+                = ff.uploadcare_uploader :file, :data => {:multiple => true }, :uploadcare => {:multiple => false, 'images-only' => true}
+          .form-group
+            label.col-md-3.control-label for="name" Sitemap
+            .col-md-8
+              = f.uploadcare_uploader :sitemap_image, :data => {:multiple => true}, :uploadcare => {:multiple => false, 'images-only' => true}
+      .panel.panel-default
+        .panel-heading
+          header Communities Amenities
+          .panel-heading-tools
+            = link_to "Manage Amenities", amenities_path, class: "btn btn-primary btn-block btn-flat btn-sm"
+        .panel-body.no-padding-top
+          p Amenities available to this Community.
+          .row
+            = f.collection_check_boxes :amenity_ids, Amenity.all, :id, :name do |a|
+              label.col-md-4
+                = a.check_box(class: "checkbox checkbox-primary", checked: true)
+                span = a.text
+      //--- Save Footer Panel
+      / = render 'shared/save_footer_panel', cancel: communities_path, title: "Save Community"
+    //--- Save Panel
+    .col-lg-4
+      = render 'shared/save_panel', cancel: communities_path, title: "Save Community"
+
+      - if @community.images.first && @community.images.first.file && !@community.images.first.new_record?
+        .panel.panel-default
+          .panel-heading
+            header Current Image
+          /.panel-body.no-padding-top
+          .col-lg-12
+            .thumbnail
+              a href="#{@community.current_image_url}" data-lightbox="community-image-#{@community.id}" data-title="Community - #{@community.name}"
+                = image_tag @community.current_image_url
+            /= attachment_image_tag(@community.images.first, :file, :fill, 250, 125)
+
+      - if @community.sitemap_image.present?
+        .panel.panel-default
+          .panel-heading
+            header Sitemap Image
+          /.panel-body.no-padding-top
+          .col-lg-12
+            .thumbnail
+              a href="#{@community.sitemap_image}" data-lightbox="community-sitemap-image-#{@community.id}" data-title="Sitemap - #{@community.name}"
+                = image_tag @community.sitemap_image
+            /= attachment_image_tag(@community.images.first, :file, :fill, 250, 125)

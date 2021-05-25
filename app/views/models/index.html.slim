@@ -1,0 +1,37 @@
+section.page-content
+  .row
+    .col-md-12
+      ol.breadcrumb
+        li = link_to 'Dashboard', root_path
+        li Models
+      = render "shared/notice" if notice
+
+  .row.margin-top-2
+    .col-md-12
+      .panel.panel-default
+        .panel-heading
+          header Models
+          .panel-heading-tools
+            = link_to new_model_path, class: "btn btn-primary" do
+              i.material-icons> add
+              | New Model
+
+        .panel-body
+          - if @models.count > 0
+            table#communities-table.table.table-striped
+              thead
+                tr
+                  td ID
+                  th Name
+                  th Description
+                  th.text-right Actions
+              tbody
+                - @models.each do |m|
+                  tr
+                    td width="25" = m.id
+                    td = m.name
+                    td.description = truncate(m.description, length: 100)
+                    td.text-right
+                      = render "shared/action_buttons", edit_path: edit_model_path(m), object: m
+          - else
+            p No Models

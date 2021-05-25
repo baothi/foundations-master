@@ -1,0 +1,59 @@
+section.page-content
+  .row
+    .col-md-12
+      ol.breadcrumb
+        li = link_to 'Dashboard', root_path
+        li = link_to 'Clients', clients_path
+        li = link_to @client.decorate.full_name, edit_client_path(@client)
+        li Floor Plans
+      = render "shared/notice" if notice
+  .row.margin-top-2
+    .col-md-12
+      .panel.panel-default
+        .panel-heading
+          header Client Floor Plans
+          .panel-heading-tools
+            = link_to edit_client_path(@client), class: "btn btn-primary btn-block btn-flat btn-sm" do
+              = material_icon('done')
+              |  Done
+
+        .panel-body
+          .row
+            .col-md-3
+              = link_to "#{material_icon('add_circle_outline')} Add Floor Plan".html_safe, { controller: 'floor_plans', action: :new, client_id: @client }, remote: true, class: "btn btn-primary btn-block btn-lg btn-flat"
+
+          - if @floor_plans.count > 0
+            table.table.table-striped
+              thead
+                tr
+                  th Floor Plan Name
+                  th Date Added
+                  th.text-right Actions
+              tbody
+              - @floor_plans.each_with_index do |floor_plan, i|
+                tr
+                  td = floor_plan.name
+                  td = floor_plan.created_at
+                  td.text-right
+                    a.btn.btn-default.btn-sm.btn-flat href="#{floor_plan.file.try(:cdn_url)}" data-lightbox="client-floor-plan-image-#{floor_plan.id}" data-title="Floor Plan - #{floor_plan.name}"
+                      | View
+                    = link_to 'Delete',  client_floor_plan_path(@client, floor_plan), data: { confirm: 'Are you sure?' }, method: :delete, class: 'btn btn-danger btn-sm btn-flat'
+          - else
+            hr/
+            p.lead No Floor Plans
+
+
+
+          / table#communities-table.table.table-striped
+          /   thead
+          /     tr
+          /       th Name
+          /       th Description
+          /       th.text-right Actions
+          /   tbody
+          /     - @floor_plans.each do |floor_plan|
+          /       tr
+          /         td width="25%" = floor_plan.name
+          /         td.description width="45%" = truncate(floor_plan.description, length: 100)
+          /         td.text-right
+          /           = render "shared/action_buttons", edit_path: edit_client_floor_plan_path(@client, floor_plan), object: [@client, floor_plan]

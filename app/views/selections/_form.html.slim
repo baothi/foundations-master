@@ -1,0 +1,38 @@
+#selection-modal.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        h4.modal-title Add Selection
+
+      / NOTE - removed remote for better UX
+      = form_for [@client, @selection], class: "form client-selection-form" do |f|
+        = f.hidden_field :authenticity_token, value: form_authenticity_token
+        .modal-body
+          .error-messages
+          .form-group.floating-label
+            label.control-label for="code" Code
+            = f.text_field :code, class: "form-control"
+          .form-group.floating-label
+            label.control-label for="name" Name
+            = f.text_field :name, class: "form-control", required: true
+          / .form-group.floating-label
+          /   label.control-label for="name" Description
+          /   = f.text_area :description, class: "form-control"
+          .form-group.floating-label
+            label.control-label for="name" Category
+            = f.collection_select(:category_id, Category.all, :id, :name, {prompt: "Select Category"}, {class: "form-control", required: true})
+          .form-group
+            p Select Image
+            /= f.attachment_field :images_files, multiple: true, presigned: true, direct: true
+            = f.fields_for :images, @selection_image do |ff|
+              = ff.uploadcare_uploader :file, :data => {:multiple => true}, :uploadcare => {:multiple => false, 'images-only' => true}
+
+        .modal-footer
+          button.btn.btn-default.btn-flat.btn-ripple data-dismiss="modal" data-id="selection-modal" type="button"
+            | Close
+
+          button.btn.btn-primary.btn-flat.btn-ripple.materialRipple-light.materialRipple-btn type="submit"
+            | Save
+            .materialRipple-md-ripple-container
+
+

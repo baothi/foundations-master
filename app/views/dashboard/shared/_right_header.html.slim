@@ -1,0 +1,40 @@
+header.header-container
+  .header-wrapper
+    #header-toolbar
+      ul.toolbar.toolbar-left
+        li
+          a#sidebar-toggle.SidebarOpen data-state="open" href="#"
+            i.material-icons menu
+      #searchbox
+        span.search-icon
+          i.material-icons search
+        input#search-input placeholder="Search" type="text"
+      ul.toolbar.toolbar-right
+        li
+          a#fullscreen-toggle data-placement="bottom" data-toggle="tooltip" href="#" title=("Toggle Fullscreen")
+            i.material-icons fullscreen
+        li#user-profile.dropdown
+          a.dropdown-toggle data-toggle="dropdown" href="#"
+            .avatar
+              img.img-circle.img-responsive src="/img/avatar.png"
+            .user
+              span.username = current_user.decorate.name || current_user.email
+            span.expand-ico
+              i.material-icons expand_more
+          ul.dropdown-menu.dropdown-menu-right
+            li
+              a href="#"
+                i.material-icons> person
+                | Your Profile
+            li
+              a href="#{settings_path}"
+                i.material-icons> settings
+                | Settings
+            li.divider
+            li
+              = link_to destroy_user_session_path, method: :delete do
+                i.material-icons exit_to_app
+                | Log Out
+        /! /#user-profile
+      /! /.navbar-right
+  /! /#header-toolbar

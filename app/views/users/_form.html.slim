@@ -1,0 +1,35 @@
+= form_for @user, :url => @user.new_record? ? invitation_path(@user) : user_path(@user), html: {class: "form-horizontal user-form" } do |f|
+  = render "shared/error_messages", object: @user if @user.errors.any?
+  .row.margin-top-2
+    .col-lg-8
+      .panel.panel-default
+        .panel-heading
+          header = @panel_title || "User"
+        .panel-body.no-padding-top
+          .form-group
+            label.col-md-3.control-label for="first_name" First Name
+            .col-md-8
+              = f.text_field :first_name, class: "form-control", required: true
+          .form-group
+            label.col-md-3.control-label for="last_name" Last Name
+            .col-md-8
+              = f.text_field :last_name, class: "form-control", required: true
+          .form-group
+            label.col-md-3.control-label for="email" Email
+            .col-md-8
+              = f.text_field :email, class: "form-control", required: true
+          .form-group
+            label.col-md-3.control-label for="roles" Role
+            .col-md-8
+              = f.select :role, options_for_select(user_role_options, @user.current_role), {}, { class: "form-control" }
+
+          .form-group
+            .col-md-3
+            .col-md-8
+              br/
+              button.btn.btn-primary.pull-right
+                i.fa.fa-circle-o-notch.fa-spin.hidden
+                = params[:action] == 'edit' ? 'Save' : 'Send Invitation'
+              = link_to 'Cancel', users_path, class: "btn btn-default pull-left"
+
+

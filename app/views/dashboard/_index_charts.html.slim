@@ -1,0 +1,41 @@
+.row
+  .col-lg-3.col-sm-6
+    .panel.panel-default
+      .panel-body.no-padding
+        .mini-card.mini-card-primary
+          .mini-card-left
+            span Communities
+            h2 = Community.count
+          .mini-card-right
+            .bemat-mini-chart.bemat-mini-chart-primary
+              span.peity-line 5,3,9,6,5,9,7,3,5,8
+  .col-lg-3.col-sm-6
+    .panel.panel-default
+      .panel-body.no-padding
+        .mini-card.mini-card-success
+          .mini-card-left
+            span Models
+            h2 = Model.all_saved.count
+          .mini-card-right
+            .bemat-mini-chart.bemat-mini-chart-success
+              span.peity-bar 4,3,5,2,5,3,8,3,4,9
+  .col-lg-3.col-sm-6
+    .panel.panel-default
+      .panel-body.no-padding
+        .mini-card.mini-card-info
+          .mini-card-left
+            span Clients
+            h2 = Client.all_saved.count
+          .mini-card-right
+            .bemat-mini-chart.bemat-mini-chart-info
+              span.peity-line 4,3,5,6,5,4,6,3,2,6
+  .col-lg-3.col-sm-6
+    .panel.panel-default
+      .panel-body.no-padding
+        .mini-card.mini-card-success
+          .mini-card-left
+            span Users
+            h2 = User.count
+          .mini-card-right
+            .bemat-mini-chart.bemat-mini-chart-info
+              span.peity-line 4,3,5,6,5,4,6,3,2,6

@@ -1,0 +1,45 @@
+#client_images-modal.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        h4.modal-title Add Client Images
+
+      / NOTE - removed remote for better UX
+      = form_for [@client, @client_image], class: "form client-image-form" do |f|
+        = f.hidden_field :authenticity_token, value: form_authenticity_token
+        = f.hidden_field :client_id, value: @client.id
+        - if params[:manage_image]
+          = hidden_field_tag :manage_image, true
+        .modal-body
+          .error-messages
+
+          .form-group.floating-label
+            label.control-label for="name" Stage
+            = f.collection_select(:stage_id, Stage.all, :id, :name, {prompt: "Select Stage"}, {class: "form-control", required: true})
+
+          .form-group.floating-label
+            label.control-label for="name" Category
+            = f.collection_select(:image_category_id, ImageCategory.all, :id, :name, {prompt: "Select Category"}, {class: "form-control", required: true})
+
+          .form-group.floating-label
+            label.control-label for="caption" Caption
+            = f.text_field :caption, class: "form-control"
+
+          .form-group
+            p Image(s)
+            - if @client_image.new_record?
+              a.btn.btn-primary#toggle-client-images Choose files
+              = hidden_field_tag :client_images, nil
+              = hidden_field_tag :client_image_group, nil, "data-multiple" => true
+            - else
+              = f.uploadcare_uploader :file, :data => {:multiple => true}, :uploadcare => {:multiple => false, 'images-only' => true}
+            /= f.attachment_field :images_files, multiple: true, presigned: true, direct: true
+
+        .modal-footer
+          button.btn.btn-default.btn-flat.btn-ripple data-dismiss="modal" data-id="selection-modal" type="button"
+            | Close
+
+          button.btn.btn-primary.btn-flat.btn-ripple.materialRipple-light.materialRipple-btn type="submit"
+            | Save
+            .materialRipple-md-ripple-container
+

@@ -1,0 +1,11 @@
+- title = title.present? ? title : "Save"
+.panel.panel-default
+  .panel-heading
+    header #{title}
+  /! /.panel-heading
+  .panel-body.no-padding-top
+    .row
+      .col-lg-6
+        a.btn.btn-danger.btn-block.btn-flat href="#{cancel}"  Cancel
+      .col-lg-6
+        button.btn.btn-info.btn-block.btn-raised type="submit"  Save

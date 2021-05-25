@@ -1,0 +1,19 @@
+h1 Listing upgrades
+
+table
+  thead
+    tr
+      th
+      th
+      th
+
+  tbody
+    - @upgrades.each do |upgrade|
+      tr
+        td = link_to 'Show', upgrade
+        td = link_to 'Edit', edit_upgrade_path(upgrade)
+        td = link_to 'Destroy', upgrade, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Upgrade', new_upgrade_path

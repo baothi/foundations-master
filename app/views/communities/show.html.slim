@@ -1,0 +1,28 @@
+p#notice = notice
+
+p
+  strong Images:
+  - @community.images.each do |image|
+    = attachment_image_tag(image, :file, :fill, 150, 150)
+p
+  strong Name:
+  = @community.name
+p
+  strong Address:
+  = @community.address
+p
+  strong City:
+  = @community.city
+p
+  strong Province:
+  = @community.province
+p
+  strong Postal code:
+  = @community.postal_code
+p
+  strong Status:
+  = @community.status
+
+= link_to 'Edit', edit_community_path(@community)
+'|
+= link_to 'Back', communities_path

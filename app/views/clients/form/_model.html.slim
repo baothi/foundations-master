@@ -1,0 +1,26 @@
+.panel.panel-default
+  .panel-heading
+    header Client Model Details
+  /! /.panel-heading
+  .panel-body.no-padding-top
+    .form-group
+      label.col-md-3.control-label for="model" Community Selection
+      .col-md-9
+        = f.collection_select(:community_id, Community.all, :id, :name, {prompt: "Select Community"}, {class: "form-control"})
+    .form-group
+      label.col-md-3.control-label for="model" Model Selection
+      .col-md-9
+        = f.collection_select(:model_id, Model.all, :id, :name, {prompt: "Select Model"}, {class: "form-control"})
+    .form-group
+      label.col-md-3.control-label for="stage" Current Stage
+      .col-md-9.stage-select-container
+        = f.collection_select(:stage_id, Stage.all, :id, :name, {prompt: "Select Stage"}, {class: "form-control"})
+    .form-group
+      label.col-md-3.control-label for="stage" Lot Number
+      .col-md-9
+        = f.text_field :lot, class: "form-control"
+    .form-group
+      label.col-md-3.control-label for="stage" Closing Date
+      .col-md-9
+        = f.text_field :closing_date, class: "form-control date-picker"
+

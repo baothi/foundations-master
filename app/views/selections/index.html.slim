@@ -1,0 +1,19 @@
+h1 Listing selections
+
+table
+  thead
+    tr
+      th
+      th
+      th
+
+  tbody
+    - @selections.each do |selection|
+      tr
+        td = link_to 'Show', selection
+        td = link_to 'Edit', edit_selection_path(selection)
+        td = link_to 'Destroy', selection, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Selection', new_selection_path

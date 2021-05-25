@@ -1,0 +1,31 @@
+.panel.panel-default
+  .panel-heading
+    header Model Floor Plans
+    .panel-heading-tools
+      = link_to "Manage Floor Plans", floor_plans_path, class: "btn btn-primary btn-block btn-flat btn-sm"
+
+  .panel-body.no-padding-top
+    p Enable and select image for each floor plan that is available to the model.
+    table.table.table-striped.model-stages
+      - FloorPlan.all.each do |floor_plan|
+        - @model_floor_plan = @model.model_floor_plans.where(floor_plan: floor_plan).first || @model.model_floor_plans.new
+        = f.fields_for :model_floor_plans, @model_floor_plan do |ff|
+          tr
+            td.no-padding width="30"
+              = ff.hidden_field :_destroy, value: 0, data: {action: "destroy", object: "floor_plan", id: floor_plan.id}
+              = ff.check_box :floor_plan_id, { class: "checkbox checkbox-primary", checked: is_floor_plan_checked(floor_plan), data: {behavior: "toggle-object-destroy", object: "floor_plan", id: floor_plan.id } }, floor_plan.id, nil
+            td width="70%"
+              h3.no-padding = floor_plan.name
+            td.text-right
+              .model-object-image-wrapper.pull-right.spinner-container data={object: "floor_plan", id: floor_plan.id}
+                - if @model_floor_plan.floor_plan_image.present?
+                  a href=("#{@model_floor_plan.floor_plan_image_url}") data-lightbox="floor_plans" data-title="#{floor_plan.name}"
+                    = image_tag @model_floor_plan.floor_plan_image_url, class: "floor_plan", data: { object: "floor_plan", id: floor_plan.id }
+                - else
+                  a href="/img/not-available.gif" data-lightbox="floor_plans" data-title="Floor Plans - #{floor_plan.name}"
+                    img alt=("#{floor_plan.name}") src="/img/not-available.gif" data={object: "floor_plan", id: floor_plan.id}
+
+            td.text-right
+              button.secondary-container.btn.btn-default.btn-icon-toggle data={behavior: "select-object-image", object: "floor_plan", id: floor_plan.id}
+                i.material-icons add_a_photo
+              = ff.hidden_field :floor_plan_image

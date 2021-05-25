@@ -1,0 +1,8 @@
+section.page-content
+  .row
+    .col-md-12
+      ol.breadcrumb
+        li = link_to 'Dashboard', root_path
+        li = link_to 'Clients', clients_path
+        li #{@client.decorate.full_name}
+  = render 'form'

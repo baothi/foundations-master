@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @elevation.name
+p
+  strong Description:
+  = @elevation.description
+
+= link_to 'Edit', edit_elevation_path(@elevation)
+'|
+= link_to 'Back', elevations_path

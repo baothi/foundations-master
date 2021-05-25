@@ -1,0 +1,94 @@
+.panel.panel-default.panel-divider
+  .panel-heading
+    header Your Task List
+    .panel-heading-tools
+      / .btn-group
+      /   a.btn.btn-icon-toggle.panel-tools-menu.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown"
+      /     i.material-icons more_vert
+      /   ul.dropdown-menu.dropdown-menu-right
+      /     li
+      /       a href="#"  Refresh
+  .panel-body.no-padding
+    .tasks-list data-class="height-6" data-toggle="subheader"
+      section
+        .list-subheader data-mode="sticky"  To Do Tasks
+        ul.list
+          - unless Stage.exists?
+            li.list-item.list-1-line
+              = link_to stages_path do
+                .list-item-text.layout-column
+                  h3 Add Stages
+            / button.secondary-container.btn.btn-default.btn-icon-toggle data-placement="left" data-toggle="tooltip" title=("Delete Task") type="button"
+            /   i.material-icons delete
+          - unless Category.exists?
+            li.list-item.list-1-line
+              = link_to categories_path do
+                .list-item-text.layout-column
+                  h3 Add Categories
+            / button.secondary-container.btn.btn-default.btn-icon-toggle data-placement="left" data-toggle="tooltip" title=("Delete Task") type="button"
+            /   i.material-icons delete
+            / button.secondary-container.btn.btn-default.btn-icon-toggle data-placement="left" data-toggle="tooltip" title=("Delete Task") type="button"
+            /   i.material-icons delete
+          - unless Amenity.exists?
+            li.list-item.list-1-line
+              = link_to amenities_path do
+                .list-item-text.layout-column
+                  h3 Add Amenities
+          - unless Community.exists?
+            li.list-item.list-1-line
+              = link_to communities_path do
+                .list-item-text.layout-column
+                  h3 Add Communities
+          - unless Model.exists?
+            li.list-item.list-1-line
+              = link_to models_path do
+                .list-item-text.layout-column
+                  h3 Add Models
+          - unless Client.exists?
+            li.list-item.list-1-line
+              = link_to clients_path do
+                .list-item-text.layout-column
+                  h3 Add Clients
+          - unless User.exists?
+            li.list-item.list-1-line
+              = link_to users_path do
+                .list-item-text.layout-column
+                  h3 Add Users
+      / section
+      /   .list-subheader data-mode="sticky"  Completed Tasks
+      /   ul.list
+      /     li.list-item.list-1-line
+      /       .list-icon
+      /         input.checkbox.checkbox-primary type="checkbox" /
+      /       .list-item-text.layout-column
+      /         h3 Release Bemat Admin v1
+      /       button.secondary-container.btn.btn-default.btn-icon-toggle data-placement="left" data-toggle="tooltip" title=("Archive Task") type="button"
+      /         i.material-icons archive
+      /     li.list-item.list-1-line
+      /       .list-icon
+      /         input.checkbox.checkbox-primary type="checkbox" /
+      /       .list-item-text.layout-column
+      /         h3 Confirm Updates with David
+      /       button.secondary-container.btn.btn-default.btn-icon-toggle data-placement="left" data-toggle="tooltip" title=("Archive Task") type="button"
+      /         i.material-icons archive
+      /     li.list-item.list-1-line
+      /       .list-icon
+      /         input.checkbox.checkbox-primary type="checkbox" /
+      /       .list-item-text.layout-column
+      /         h3 Make daily backup
+      /       button.secondary-container.btn.btn-default.btn-icon-toggle data-placement="left" data-toggle="tooltip" title=("Archive Task") type="button"
+      /         i.material-icons archive
+      /     li.list-item.list-1-line
+      /       .list-icon
+      /         input.checkbox.checkbox-primary type="checkbox" /
+      /       .list-item-text.layout-column
+      /         h3 Buy bread and butter
+      /       button.secondary-container.btn.btn-default.btn-icon-toggle data-placement="left" data-toggle="tooltip" title=("Archive Task") type="button"
+      /         i.material-icons archive
+      /     li.list-item.list-1-line
+      /       .list-icon
+      /         input.checkbox.checkbox-primary type="checkbox" /
+      /       .list-item-text.layout-column
+      /         h3 Buy bread and butter
+      /       button.secondary-container.btn.btn-default.btn-icon-toggle data-placement="left" data-toggle="tooltip" title=("Archive Task") type="button"
+      /         i.material-icons archive

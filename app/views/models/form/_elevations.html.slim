@@ -1,0 +1,31 @@
+.panel.panel-default
+  .panel-heading
+    header Model Elevations
+    .panel-heading-tools
+      = link_to "Manage Elevations", elevations_path, class: "btn btn-primary btn-block btn-flat btn-sm"
+
+  .panel-body.no-padding-top
+    p Enable and select image for each elevation that is available to the model.
+    table.table.table-striped.model-stages
+      - Elevation.all.each do |elevation|
+        - @model_elevation = @model.model_elevations.where(elevation: elevation).first || @model.model_elevations.new
+        = f.fields_for :model_elevations, @model_elevation do |ff|
+          tr
+            td.no-padding width="30"
+              = ff.hidden_field :_destroy, value: 0, data: {action: "destroy", object: "elevation", id: elevation.id}
+              = ff.check_box :elevation_id, { class: "checkbox checkbox-primary", checked: is_elevation_checked(elevation), data: {behavior: "toggle-object-destroy", object: "elevation", id: elevation.id } }, elevation.id, nil
+            td width="70%"
+              h3.no-padding = elevation.name
+            td.text-right
+              .model-object-image-wrapper.pull-right.spinner-container data={object: "elevation", id: elevation.id}
+                - if @model_elevation.elevation_image.present?
+                  a href=("#{@model_elevation.elevation_image_url}") data-lightbox="elevations" data-title="#{elevation.name}"
+                    = image_tag(@model_elevation.elevation_image_url, class: "elevation", data: { object: "elevation", id: elevation.id })
+                - else
+                  a href="/img/not-available.gif" data-lightbox="elevations" data-title="Elevations - #{elevation.name}"
+                    img alt=("#{elevation.name}") src="/img/not-available.gif" data={object: "elevation", id: elevation.id}
+
+            td.text-right
+              button.secondary-container.btn.btn-default.btn-icon-toggle data={behavior: "select-object-image", object: "elevation", id: elevation.id}
+                i.material-icons add_a_photo
+              = ff.hidden_field :elevation_image

@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @floor_plan.name
+p
+  strong Description:
+  = @floor_plan.description
+
+= link_to 'Edit', edit_floor_plan_path(@floor_plan)
+'|
+= link_to 'Back', floor_plans_path

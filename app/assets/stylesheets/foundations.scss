@@ -1,0 +1,46 @@
+$primary-color: #009688;
+$sidebar-width: 300px;
+
+//--- COMMUNITIES
+table#communities-table {
+  td.description {
+    line-height: 1.5em;
+  }
+}
+.no-padding {
+  margin: 0;
+  padding: 0;
+}
+
+h3.form-heading {
+  border-bottom: 1px solid $primary-color;
+}
+
+// Override for bootstrap
+.form-horizontal .checkbox, .form-horizontal .radio {
+    min-height: 100%;
+}
+
+//-- Sidebar
+nav.affix-bottom {
+  width: $sidebar-width!important;
+  bottom: 25px;
+  position: fixed;
+}
+.affix {
+  bottom: 25px;
+   position: fixed;
+}
+
+// //--- Panels
+// .panel .panel-body {
+//   padding: 24px 16px;
+//   padding-top: 0;
+// }
+
+//--- Tables
+table.nested-table {
+  td {
+    padding: 0;
+  }
+}

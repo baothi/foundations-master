@@ -1,0 +1,38 @@
+section.page-content
+  .row
+    .col-md-12
+      ol.breadcrumb
+        li = link_to 'Dashboard', root_path
+        li Clients
+      = render "shared/notice" if notice
+
+  .row.margin-top-2
+    .col-md-12
+      .panel.panel-default
+        .panel-heading
+          header Clients
+          .panel-heading-tools
+            = link_to new_client_path, class: "btn btn-primary" do
+              i.material-icons> add
+              | New Client
+
+        .panel-body
+          table#communities-table.table.table-striped
+            thead
+              tr
+                th name
+                th Email
+                / th Phone
+                th Model
+                th Current Stage
+                th.text-right Actions
+            tbody
+              - @clients.each do |client|
+                tr
+                  td = client.decorate.full_name
+                  td = client.email
+                  / td = client.phone
+                  td = client.model.name
+                  td = collection_select(:client, :stage_id, Stage.all, :id, :name, { :selected => client.stage.id, :prompt => false }, { data: { behavior: 'toggle-client-stage', id: client.id } })
+                  td.text-right
+                    = render "shared/action_buttons", edit_path: edit_client_path(client), object: client

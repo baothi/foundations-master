@@ -1,0 +1,29 @@
+/ #userbox
+/   #useravatar
+/     .avatar-thumbnail
+/       img.img-circle src="img/avatar.png" /
+/   #userinfo
+/     .btn-group
+/       button.btn.btn-default-bright.btn-flat.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" type="button"
+/         | John Doe
+/         i.material-icons arrow_drop_down
+/       ul.dropdown-menu
+/         li
+/           a href="#"
+/             i.material-icons> person
+/             | Your Profile
+/         li
+/           a href="#"
+/             i.material-icons> settings
+/             | Settings
+/         li.divider
+/         li
+/           a href="#"
+/             i.material-icons lock
+/             | Lock
+/         li.divider
+/         li
+/           = link_to destroy_user_session_path, method: :delete do
+/             i.material-icons exit_to_app
+/             | Log Out
+br /

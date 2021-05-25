@@ -1,0 +1,45 @@
+section.page-content
+  .row
+    .col-md-12
+      ol.breadcrumb
+        li = link_to 'Dashboard', root_path
+        li Users
+      = render "shared/notice" if notice
+
+  .row.margin-top-2
+    .col-md-12
+      .panel.panel-default
+        .panel-heading
+          header Users
+          .panel-heading-tools
+            = link_to new_user_path, class: "btn btn-primary" do
+              i.material-icons> add
+              | New User
+
+        .panel-body
+          table#users-table.table.table-striped
+            thead
+              tr
+                td Name
+                th Email
+                th Current Role
+                th.text-right Actions
+            tbody
+              - @users.each do |user|
+                tr
+                  td = user.decorate.full_name
+                  td = user.email
+                  td
+                    - if user == current_user
+                      = user.decorate.role_name
+                    - else
+                      = select_tag 'user-role', options_for_select(user_role_options, user.current_role), { data: { behavior: "toggle-user-role", id: user.id } }
+                  td.text-right
+                    / = render "shared/action_buttons", edit_path: edit_user_path(user), object: user
+                    - if user != current_user
+                      ul.list-inline.no-padding
+                        li.no-padding.no-margin
+                          = link_to material_icon('mode_edit'), edit_user_path(user), class: "btn btn-icon-toggle btn-default"
+                        li.no-padding.no-margin
+                          = link_to material_icon('delete'), user_path(user), :method => :delete, object: user, class: "btn btn-icon-toggle btn-default", data: {:confirm => 'Are you sure?'}, :method => :delete
+

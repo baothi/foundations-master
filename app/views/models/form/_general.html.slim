@@ -1,0 +1,22 @@
+.form-group
+  label.col-md-3.control-label for="name" Model Name
+  .col-md-8
+    = f.text_field :name, class: "form-control"
+.form-group
+  label.col-md-3.control-label for="number" Model Code
+  .col-md-8
+    = f.text_field :code, class: "form-control"
+.form-group
+  label.col-md-3.control-label for="number" Square Footage
+  .col-md-8
+    = f.text_field :square_footage, class: "form-control"
+    p.help-block ie. 1200-1800
+.form-group
+  label.col-md-3.control-label for="description" Description
+  .col-md-8
+    = f.text_area :description, class: "form-control"
+.form-group
+  label.col-md-3.control-label for="name" Model Render
+  .col-md-8
+    = f.fields_for :images, @model_image do |ff|
+      = ff.uploadcare_uploader :file, :data => {:multiple => true}, :uploadcare => {:multiple => false, 'images-only' => true}

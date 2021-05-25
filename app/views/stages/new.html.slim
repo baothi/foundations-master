@@ -1,0 +1,10 @@
+section.page-content
+  .row
+    .col-md-12
+      ol.breadcrumb
+        li = link_to 'Dashboard', root_path
+        li = link_to 'Stages', stages_path
+        li New
+  .row
+    .col-md-12
+      = render 'form'

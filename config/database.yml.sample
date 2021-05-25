@@ -1,0 +1,17 @@
+default: &default
+  adapter: postgresql
+  database: foundations
+  encoding: utf8
+  username: root
+  pool: 2
+
+development:
+  <<: *default
+  database: foundations_development
+  host: localhost
+  username: <%= ENV['POSTGRES_USERNAME'] %>
+
+test:
+  <<: *default
+  username: <%= ENV['POSTGRES_USERNAME'] %>
+  database: foundations_test

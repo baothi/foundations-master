@@ -1,0 +1,5 @@
+ul.list-inline.no-padding
+  / li.no-padding.no-margin = link_to ' Show ', stage
+  / | |
+  li.no-padding.no-margin = link_to material_icon('mode_edit'), edit_path, class: "btn btn-icon-toggle btn-default"
+  li.no-padding.no-margin = link_to material_icon('delete'), object, class: "btn btn-icon-toggle btn-default", data: {:confirm => 'Are you sure?'}, :method => :delete
